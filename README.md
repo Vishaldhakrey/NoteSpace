@@ -13,7 +13,7 @@ Welcome to **NoteSpace**, a powerful and user-friendly note-taking application b
 
 ## 🛠️ Technologies Used
 
-- **Frontend**: React.js, CSS, Material-UI
+- **Frontend**: React.js, CSS, tailwind
 - **Backend**: Node.js, Express.js, MongoDB
 - **Authentication**: JSON Web Tokens (JWT)
 - **State Management**: React Hooks

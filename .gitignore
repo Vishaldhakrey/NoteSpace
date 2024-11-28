@@ -1,0 +1,51 @@
+# Node modules for both client and server
+client/node_modules/
+server/node_modules/
+
+# Build output for client (React/Vite/Next.js) and server (if applicable)
+client/dist/
+client/build/
+client/.next/
+client/.vite/
+
+# Local environment files
+client/.env
+server/.env
+*.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# IDE and editor files
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependency management files
+client/bower_components/
+server/bower_components/
+
+# TypeScript build info (if using TypeScript)
+client/*.tsbuildinfo
+server/*.tsbuildinfo
+
+# Temporary files and folders
+client/.tmp/
+server/.tmp/
+
+# Common directories to ignore
+client/.git/
+server/.git/
+
+# .env files (for sensitive environment data)
+client/.env.local
+server/.env.local

@@ -34,8 +34,8 @@ First, clone the repository to your local machine:
 
 ```bash
 git clone <repo-url>
-cd <repo-name>
- **Dependencies Installation**: 
+cd <repo-name>```
+**Dependencies Installation**: 
     - `npm install` in both the frontend and backend directories installs all the necessary libraries from `package.json`.
 
 2. **Environment Configuration**: 

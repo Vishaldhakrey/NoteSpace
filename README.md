@@ -28,13 +28,12 @@ Make sure you have the following installed on your machine:
 
 ## Setup Instructions
 
-### 1. Clone the Repository
+### Clone the Repository
 
 First, clone the repository to your local machine:
 
-```bash
-git clone <repo-url>
-cd <repo-name>```
+git clone git@github.com:Vishaldhakrey/NoteSpace.git
+cd NoteSpace
 **Dependencies Installation**: 
     - `npm install` in both the frontend and backend directories installs all the necessary libraries from `package.json`.
 

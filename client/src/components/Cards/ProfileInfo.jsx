@@ -1,6 +1,5 @@
 import React from 'react'
 import { getInitials } from '../../utils/helper'
-import Switcher from '../DarkMode/Switcher'
 
 const ProfileInfo = ({ userInfo, onLogout }) => {
     return (
@@ -9,11 +8,6 @@ const ProfileInfo = ({ userInfo, onLogout }) => {
                 text-slate-950 font-medium bg-slate-100 dark:bg-slate-800 dark:text-slate-200'>
                 {getInitials(userInfo?.username)}
             </div>
-
-            <div className='flex items-center gap-4'>
-                <Switcher />
-            </div>
-
             <button 
                 className='text-sm bg-red-500 p-2 rounded-md text-white hover:bg-red-600 transition-colors'
                 onClick={onLogout}>

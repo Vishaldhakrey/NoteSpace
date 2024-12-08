@@ -4,47 +4,47 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-
+// Load environment variables
 dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
-    console.log("Connected to mongoDB");
-}).catch((err) => {
-    console.log(err);
-});
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+        console.log("MongoDB connection error:", err);
+    });
 
 const app = express();
 
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-}));
+app.use(cors({origin: true, credentials: true}));
 
-app.listen(PORT, () => {
-    console.log("Server is running on port 3000");
-})
-
-
-//import routes
+// Routes
 import authRouter from "./routes/authRoute.js";
 import noteRouter from "./routes/noteRoute.js";
 
 app.use("/api/auth", authRouter);
 app.use("/api/note", noteRouter);
 
-
-//error handling
+// Error Handling Middleware
 app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500
-    const message = err.message || "Internal Server Error"
-
+    console.error(err.stack);  // Log the full error stack for debugging
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
     return res.status(statusCode).json({
         success: false,
         statusCode,
         message,
-    })
-})
+    });
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

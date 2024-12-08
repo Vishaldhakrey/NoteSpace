@@ -1,72 +1,70 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import PasswordInput from "../../components/Input/PasswordInput";
 import { Link, useNavigate } from "react-router-dom";
 import { validateEmail, validateName, validatePassword } from "../../utils/helper";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Signup = () => {
-    const [email, setEmail] = useState("")
-    const [name, setName] = useState("")
-    const [password, setPassword] = useState("")
-    const [error, setError] = useState("")
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const handleSignUp = async(e) => {
-        e.preventDefault()
+    const handleSignUp = async (e) => {
+        e.preventDefault();
 
-        if(!validateName(name)){
-            setError("Please enter valid name")
-            setName('')
-            return
+        // Client-side validation
+        if (!validateName(name)) {
+            setError("Please enter a valid name");
+            setName("");
+            return;
         }
-        if(!validateEmail(email)){
-            setError("Please enter a valid email address")
-            setEmail('')
-            return
+        if (!validateEmail(email)) {
+            setError("Please enter a valid email address");
+            setEmail("");
+            return;
         }
 
-        if(!password) {
-            setError("Please enter a password")
-            return 
+        if (!password) {
+            setError("Please enter a password");
+            return;
         }
-        if(password && !validatePassword(password)){
+        if (password && !validatePassword(password)) {
             setError(
-                `Please enter a valid password that have at 
-                least one lowercase letter, one uppercase letter, 
-                one digit,  one special character and 
-                password must be 8 characters long`
-            )
-            setPassword('')
-            return 
+                `Please enter a valid password that has at least one lowercase letter, one uppercase letter, one digit, one special character, and is at least 8 characters long.`
+            );
+            setPassword("");
+            return;
         }
 
-        setError("")
+        setError("");  // Clear error message
 
-        // sign up api
+        // Sign up API request
         try {
             const res = await axios.post(
                 "http://localhost:3000/api/auth/signup", 
-                {username: name, email, password},
-                {withCredentials: true}
-            )
+                { username: name, email, password },
+                { withCredentials: true}  // 5 seconds timeout
+            );
             
-            if(res.data.success === false) {
-                setError(res.data.message)
-                toast.error(res.data.message)
-                return
+            if (res.data.success === false) {
+                setError(res.data.message);
+                toast.error(res.data.message);
+                return;
             }
 
-            toast.success(res.data.message)
-            setError("")
-            navigate("/login")
+            toast.success(res.data.message);
+            setError("");
+            navigate("/login");
         } catch (error) {
-            toast.error(error.message)
-            console.log(error.message)
-            setError(error.message)
+            console.error("Error during signup:", error);
+            toast.error(error.response?.data?.message || error.message);
+            setError(error.response?.data?.message || error.message);
         }
-
-    }
+    };
 
     return (
         <div className="flex item-center justify-center mt-28">
@@ -87,23 +85,18 @@ const Signup = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <PasswordInput 
+                    <PasswordInput
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button 
-                        type="submit"
-                        className="btn-primary"
-                    >
+                    <button type="submit" className="btn-primary">
                         SIGN UP
                     </button>
 
-                    {error && <p className="text-red-500 text-sm pb-1">
-                        {error}
-                    </p>}
+                    {error && <p className="text-red-500 text-sm pb-1">{error}</p>}
 
                     <p className="text-sm text-center mt-4">
-                        Already have account?
+                        Already have an account? 
                         <Link to={"/login"} className="font-medium text-primary underline mx-1">
                             Login
                         </Link>
@@ -111,7 +104,7 @@ const Signup = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Signup
+export default Signup;
